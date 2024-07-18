@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        form {
+            width: 700px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: none;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: top; /* Ensure vertical alignment of error messages */
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin-top: 10px;
+        }
+        .error-input {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<form onsubmit="return validateForm()">
+    <table>
+        <tr>
+            <td><label for="name">Name:</label></td>
+            <td><input type="text" id="name" name="name"><span id="nameError" class="error-message"></span></td>
+        </tr>
+        <tr>
+            <td><label for="email">Email:</label></td>
+            <td><input type="email" id="email" name="email"><span id="emailError" class="error-message"></span></td>
+        </tr>
+        <tr>
+            <td><label for="website">Website:</label></td>
+            <td><input type="text" id="website" name="website"><span id="websiteError" class="error-message"></span></td>
+        </tr>
+        <tr>
+            <td><label for="message">Message:</label></td>
+            <td colspan="2"><textarea id="message" name="message" rows="4"></textarea><span id="messageError" class="error-message"></span></td>
+        </tr>
+    </table>
+
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+function validateForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var website = document.getElementById("website").value;
+    var message = document.getElementById("message").value;
+    var error = false;
+    
+    // Check if name is empty
+    if (name.trim() === "") {
+        showError("nameError", "Name is required");
+        error = true;
+    } else {
+        hideError("nameError");
+    }
+
+    // Check if email is valid
+    if (!validateEmail(email)) {
+        showError("emailError", "A valid email address is required");
+        error = true;
+    } else {
+        hideError("emailError");
+    }
+
+    // Check if website is a valid URL
+    if (website.trim() !== "" && !validateURL(website)) {
+        showError("websiteError", "A valid URL is required");
+        error = true;
+    } else {
+        hideError("websiteError");
+    }
+
+    // Check if message is empty
+    if (message.trim() === "") {
+        showError("messageError", "Message is required");
+        error = true;
+    } else {
+        hideError("messageError");
+    }
+
+    // If there are errors, prevent form submission
+    if (error) {
+        return false;
+    }
+
+    // If no errors, submit the form
+    return true;
+}
+
+function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+function validateURL(url) {
+    var re = /^(ftp|http|https):\/\/[^ "]+$/;
+    return re.test(url);
+}
+
+function showError(id, errorMessage) {
+    var element = document.getElementById(id);
+    element.textContent = errorMessage;
+    element.style.display = "inline";
+}
+
+function hideError(id) {
+    var element = document.getElementById(id);
+    element.textContent = "";
+}
+</script>
+
+</body>
+</html>

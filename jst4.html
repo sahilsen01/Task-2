@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date and Time Display</title>
+    <style>
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button-container button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .output {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .time-output {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button id="showDateButton">Show Date</button><br>
+        <button id="showTimeButton">Show Time</button>
+    </div>
+    <div class="output">
+        <p id="dateOutput"></p>
+        <p id="timeOutput" class="time-output"></p>
+    </div>
+
+    <script src="datetime.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .is-invalid {
+      border-color: red;
+    }
+    .btn-submit {
+      width: 80%;
+      margin-left: 10%;
+    }
+    .custom-form-background {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body custom-form-background">
+          <form id="contactForm" action="" method="POST" novalidate>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" name="name" required>
+              <div class="invalid-feedback">
+                Please enter your name.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+              <div class="invalid-feedback">
+                Please enter a valid email address.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="pass">Password</label>
+              <input type="password" class="form-control" id="pass" name="pass" required>
+              <div class="invalid-feedback">
+                Please enter your password.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="hobbies">Hobbies</label>
+              <select class="form-control" id="hobbies" name="hobbies" required>
+                <option value="">Choose...</option>
+                <option value="reading">Reading</option>
+                <option value="painting">Painting</option>
+                <option value="singing">Singing</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a hobby.
+              </div>
+            </div>
+            <button type="submit" class="btn btn-danger btn-submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  // Validate form on submission
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+    var form = event.target;
+
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    // Check each field for validity and apply .is-invalid class if invalid
+    if (form.name.value === '') {
+      form.name.classList.add('is-invalid');
+    } else {
+      form.name.classList.remove('is-invalid');
+    }
+
+    if (form.email.value === '' || !isValidEmail(form.email.value)) {
+      form.email.classList.add('is-invalid');
+    } else {
+      form.email.classList.remove('is-invalid');
+    }
+
+    if (form.pass.value === '') {
+      form.pass.classList.add('is-invalid');
+    } else {
+      form.pass.classList.remove('is-invalid');
+    }
+
+    if (form.hobbies.value === '') {
+      form.hobbies.classList.add('is-invalid');
+    } else {
+      form.hobbies.classList.remove('is-invalid');
+    }
+
+    // Add .was-validated to enable Bootstrap's custom validation styles
+    form.classList.add('was-validated');
+  }, false);
+
+  // Function to validate email format
+  function isValidEmail(email) {
+    // Basic email validation regex
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+</script>
+
+</body>
+</html>
